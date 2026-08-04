@@ -33,6 +33,10 @@ def init_schema(conn: Connection) -> None:
             unit_price REAL NOT NULL,
             FOREIGN KEY (order_id) REFERENCES orders(order_id)
         );
+        CREATE INDEX idx_orders_customer_id ON orders(customer_id);
+        CREATE INDEX idx_orders_order_date ON orders(order_date);
+
         """
+
     )
     conn.commit()
