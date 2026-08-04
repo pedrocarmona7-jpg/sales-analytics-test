@@ -18,13 +18,13 @@ def load_all_data(conn: Connection) -> None:
         n_customers, n_orders, n_items,
     )
 
-def load_customers(conn: Connection) -> None:
+def load_customers(conn: Connection) -> int:
     df = pd.read_csv(Path(DATA_DIR) / "customers.csv")
 
     df.to_sql("customers", conn, if_exists="replace", index=False)
     return len(df)
 
-def load_orders(conn: Connection) -> None:
+def load_orders(conn: Connection) -> int:
     df = pd.read_csv(Path(DATA_DIR) / "orders.csv")
     
     missing_amount = df["total_amount"].isna().sum()
@@ -41,7 +41,7 @@ def load_orders(conn: Connection) -> None:
     df.to_sql("orders", conn, if_exists="replace", index=False)
     return len(df)
 
-def load_order_items(conn: Connection) -> None:
+def load_order_items(conn: Connection) -> int:
     df = pd.read_csv(Path(DATA_DIR) / "order_items.csv")
 
 
